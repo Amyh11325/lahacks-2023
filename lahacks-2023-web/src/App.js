@@ -1,7 +1,10 @@
 import {useEffect, useRef, useState} from 'react';
 import logo from './logo.svg';
+
 import './App.css';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import React from 'react'; 
+import NewNote from "./components/NewNote";
  
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2VjMDA1IiwiYSI6ImNsZ3NncHR0ajFybW0zdXBtMzYzdG1qdjcifQ.3vnXg76QfpWaqrJaZ7u9og';
 const LA_LATITUDE = 34.05;
@@ -16,6 +19,8 @@ function App() {
   const [lng, setLng] = useState(LA_LONGITUDE);
   const [lat, setLat] = useState(LA_LATITUDE);
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
+  
+  const [noteToggle, setNoteToggle] = useState(false) 
 
   useEffect(() => { // useEffect hook for initializing the map stuff
     if (map.current) return; // initialize map only once
@@ -36,12 +41,27 @@ function App() {
     });
   });
 
+  useEffect(() => {
+    // useEffect hook for adding a marker to the point on the map you double clicked
+    if (!map.current) return; // wait for map to initialize
+    map.current.on("dblclick", (event) => {
+      const coordinates = event.lngLat;
+      const newMarker = new mapboxgl.Marker();
+      newMarker.setLngLat(coordinates).addTo(map.current);
+      newMarker.getElement().addEventListener("click", () => {        
+        setNoteToggle((noteToggle) => !noteToggle);
+        console.log("clicked", noteToggle);
+      });
+    });
+  });
+
   return (
     <div>
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={mapContainer} className="map-container" />
+      {noteToggle && <NewNote setNoteToggle={setNoteToggle}/>}
     </div>
   );
 }
