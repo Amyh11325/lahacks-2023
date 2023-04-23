@@ -25,8 +25,19 @@ usersRouter.post('/', async (request, response) => {
   })
   
 usersRouter.get('/', async (request, response) => {
-    
     const users = await User.find({}).populate('notes', { title: 1, location: 1, content: 1,  date_created: 1}) //populate notes 
     response.json(users)
 })
+
+usersRouter.get('/:email', async (request, response) => {
+  const id = request.params.email
+  if (email == null) {
+    const users = await User.find({}).populate('notes', { title: 1, location: 1, content: 1,  date_created: 1}) //populate notes 
+    response.json(users)
+  }
+  else{
+    email
+  }
+})
+
 module.exports = usersRouter
