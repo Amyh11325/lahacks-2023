@@ -4,6 +4,8 @@ import React from "react";
 import NewNote from "./NewNote";
 import ButtonAppBar from "./ButtonAppBar";
 
+import '../styles/map.css'
+
 mapboxgl.accessToken =
   "pk.eyJ1Ijoic2VjMDA1IiwiYSI6ImNsZ3NncHR0ajFybW0zdXBtMzYzdG1qdjcifQ.3vnXg76QfpWaqrJaZ7u9og";
 const LA_LATITUDE = 34.05;
