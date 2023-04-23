@@ -41,6 +41,13 @@ app.get("/file/:filename", async (req, res) => {
     }
 });
 
+app.get("/metadatas", async (req, res) => {
+    const cursor = gridfsBucket.find({});
+    const docs = await cursor.toArray();
+    const ids = docs.map((doc) => doc.filename);
+    return res.json(ids);
+});
+
 app.use('/api/notes', notesRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
