@@ -12,6 +12,7 @@ const NewNote = ({setNoteToggle, setFormData, setButtonPressed}) => {
     setFormData(notes);
     setButtonPressed(true);
     setNote("");
+    setNoteToggle(false);
   };
 
   const handleNoteChange = (event) => {
