@@ -1,14 +1,14 @@
 import React from "react";
 import { useState } from "react";
 
-import '../styles/newnote.css'
-
-const NewNote = ({setNoteToggle}) => {
+const NewNote = ({setNoteToggle, setFormData, setButtonPressed}) => {
   const [notes, setNote] = useState('')
 
   const addNote = (event) => {
     event.preventDefault()
     console.log("Submitted ", notes)
+    setFormData(notes);
+    setButtonPressed(true);
     setNote("");
   };
 

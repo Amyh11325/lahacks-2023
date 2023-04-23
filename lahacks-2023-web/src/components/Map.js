@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import React from "react";
 import NewNote from "./NewNote";
+import ButtonAppBar from "./ButtonAppBar";
 
 import '../styles/map.css'
 
@@ -19,8 +20,20 @@ const Map = () => {
   const [lng, setLng] = useState(LA_LONGITUDE);
   const [lat, setLat] = useState(LA_LATITUDE);
   const [zoom, setZoom] = useState(DEFAULT_ZOOM);
-
+  const [markers, setMarkers] = useState([]);
+  const [activeMarker, setActiveMarker] = useState(null);
   const [noteToggle, setNoteToggle] = useState(false);
+  const [buttonPressed, setButtonPressed] = useState(false);
+  const [formData, setFormData] = useState("");
+
+  useEffect(() => { 
+    // useEffect hook for adding popup text to markers 
+    if (!activeMarker || !buttonPressed) return; // don't add popup text if the save button wasn't pressed
+    const coordinates = activeMarker.getLngLat();
+    const newPopup = new mapboxgl.Popup().setLngLat(coordinates).setText(formData).addTo(map.current);
+    activeMarker.setPopup(newPopup);
+    setButtonPressed(false); // set it back to false until it's pressed again
+  }, [formData, activeMarker, buttonPressed]);
 
   useEffect(() => {
     // useEffect hook for initializing the map stuff
@@ -51,19 +64,22 @@ const Map = () => {
       const newMarker = new mapboxgl.Marker();
       newMarker.setLngLat(coordinates).addTo(map.current);
       newMarker.getElement().addEventListener("click", () => {
-        setNoteToggle((noteToggle) => !noteToggle);
+        setActiveMarker(newMarker);
+        setNoteToggle((noteToggle)  => !noteToggle);
         console.log("clicked", noteToggle);
       });
+      setMarkers([...markers, newMarker]);
     });
   });
 
   return (
-    <div id="map">
+    <div>
+      <ButtonAppBar/>
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={mapContainer} className="map-container" />
-      {noteToggle && <NewNote setNoteToggle={setNoteToggle} />}
+      {noteToggle && <NewNote setNoteToggle={setNoteToggle} setFormData={setFormData} setButtonPressed={setButtonPressed}/>}
     </div>
   );
 }
