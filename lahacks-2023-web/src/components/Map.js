@@ -20,14 +20,16 @@ const Map = () => {
   const [markers, setMarkers] = useState([]);
   const [activeMarker, setActiveMarker] = useState(null);
   const [noteToggle, setNoteToggle] = useState(false);
+  const [buttonPressed, setButtonPressed] = useState(false);
   const [formData, setFormData] = useState("");
 
   useEffect(() => {
-    if (!activeMarker) return;
+    if (!activeMarker || !buttonPressed) return;
     const coordinates = activeMarker.getLngLat();
     const newPopup = new mapboxgl.Popup().setLngLat(coordinates).setText(formData).addTo(map.current);
     activeMarker.setPopup(newPopup);
-  }, [formData, activeMarker]);
+    setButtonPressed(false);
+  }, [formData, activeMarker, buttonPressed]);
 
   useEffect(() => {
     // useEffect hook for initializing the map stuff
@@ -72,7 +74,7 @@ const Map = () => {
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div ref={mapContainer} className="map-container" />
-      {noteToggle && <NewNote setNoteToggle={setNoteToggle} setFormData={setFormData}/>}
+      {noteToggle && <NewNote setNoteToggle={setNoteToggle} setFormData={setFormData} setButtonPressed={setButtonPressed}/>}
     </div>
   );
 }
