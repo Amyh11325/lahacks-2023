@@ -4,8 +4,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Login from "./components/Login";
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import SignInSide from './components/SignInSide';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,7 +15,7 @@ root.render(
     <Router>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<SignInSide />} />
         </Routes>
     </Router>
   </React.StrictMode>
