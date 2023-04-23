@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import SignInSide from './components/SignInSide';
+import SignUp from './components/SignUp';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -16,6 +17,7 @@ root.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/login" element={<SignInSide />} />
+          <Route path="/register" element={<SignUp />} />
         </Routes>
     </Router>
   </React.StrictMode>

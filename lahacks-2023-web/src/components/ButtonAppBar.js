@@ -15,6 +15,10 @@ export default function ButtonAppBar() {
   const login = () =>{ 
     navigate("/login");
   }
+
+  const register = () => {
+    navigate("/register")
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -31,6 +35,9 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             News
           </Typography>
+          <Button color="inherit"
+          onClick={register}
+          >Register</Button>
           <Button color="inherit"
           onClick={login}
           >Login</Button>
