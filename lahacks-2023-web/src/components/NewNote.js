@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
 
-const NewNote = ({setNoteToggle}) => {
+const NewNote = ({setNoteToggle, setFormData}) => {
   const [notes, setNote] = useState('')
 
   const addNote = (event) => {
     event.preventDefault()
     console.log("Submitted ", notes)
+    setFormData(notes);
     setNote("");
   };
 
