@@ -19,8 +19,8 @@
 #formholder {
     width: 100vw;
     height: 100vh;
-    position: fixed;
-    z-index: 1000; 
+    position: absolute;
+    z-index: 1000000000; 
     background-color: black;
 }
 
@@ -44,6 +44,8 @@
     align-items: flex-start;
     gap: 1rem; 
 
+
+    text-align: left;
 -webkit-box-shadow: 0px 0px 1000px 1000px rgba(0, 0, 0, 0.37);
     -moz-box-shadow: 0px 0px 1000px 1000px rgba(0, 0, 0, 0.37);
     box-shadow: 0px 0px 1000px 1000px rgba(0, 0, 0, 0.37);
