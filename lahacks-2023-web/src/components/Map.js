@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import React from "react";
 import NewNote from "./NewNote";
+import ButtonAppBar from "./ButtonAppBar";
+
+import '../styles/map.css'
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoic2VjMDA1IiwiYSI6ImNsZ3NncHR0ajFybW0zdXBtMzYzdG1qdjcifQ.3vnXg76QfpWaqrJaZ7u9og";
@@ -23,12 +26,13 @@ const Map = () => {
   const [buttonPressed, setButtonPressed] = useState(false);
   const [formData, setFormData] = useState("");
 
-  useEffect(() => {
-    if (!activeMarker || !buttonPressed) return;
+  useEffect(() => { 
+    // useEffect hook for adding popup text to markers 
+    if (!activeMarker || !buttonPressed) return; // don't add popup text if the save button wasn't pressed
     const coordinates = activeMarker.getLngLat();
     const newPopup = new mapboxgl.Popup().setLngLat(coordinates).setText(formData).addTo(map.current);
     activeMarker.setPopup(newPopup);
-    setButtonPressed(false);
+    setButtonPressed(false); // set it back to false until it's pressed again
   }, [formData, activeMarker, buttonPressed]);
 
   useEffect(() => {
@@ -70,6 +74,7 @@ const Map = () => {
 
   return (
     <div>
+      <ButtonAppBar/>
       <div className="sidebar">
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
