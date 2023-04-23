@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+import '../styles/newnote.css'
+
 const NewNote = ({setNoteToggle}) => {
   const [notes, setNote] = useState('')
 
@@ -15,13 +17,29 @@ const NewNote = ({setNoteToggle}) => {
   };
 
   return (
-    <div>
-      <h1>Notes</h1>
-      <form onSubmit={addNote}>
-        <input value={notes} onChange={handleNoteChange} />
-        <button type="submit">save</button>
-      </form>
-      <button onClick={() => setNoteToggle(false)} >Cancel</button>
+    <div id="formholder">
+      <div id="newnote">
+        <h1 className="robotoheavy">New note</h1>
+        <p className="robotolight">Add a new note describing this location.</p>
+        <textarea
+          id="newinput"
+          type="text"
+          className="robotomedium"
+          value={notes}
+          onChange={handleNoteChange}
+        />
+        <div id="inputbuttons" classNae="robotomedium">
+          <button className="formbutton robotomedium" onClick={addNote}>
+            Save
+          </button>
+          <button
+            className="formbutton robotomedium"
+            onClick={() => setNoteToggle(false)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
