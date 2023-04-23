@@ -14,11 +14,11 @@ const notesSchema = new Schema({
       required: true,
     },
   },
-  note: String,
+  content: String,
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
   },
-  created_at: Date,
+  date_created: Date,
 });
 
 module.exports = mongoose.model('notes', notesSchema)
